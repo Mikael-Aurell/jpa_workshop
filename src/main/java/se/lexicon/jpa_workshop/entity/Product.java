@@ -14,7 +14,7 @@ public class Product {
     @Column(nullable = false, length = 80)
     private String name;
     @Column(nullable = false, length = 80)
-    private int price;
+    private double price;
 
     public int getId() {
         return id;
@@ -32,7 +32,7 @@ public class Product {
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

@@ -15,7 +15,7 @@ public class OrderItem {
     private Product product;
     private ProductOrder productOrder;
 
-    public int calculatePrice(Product product, int quantity){
+    public double calculatePrice(Product product, int quantity){
         return product.getPrice()*quantity;
     }
 
