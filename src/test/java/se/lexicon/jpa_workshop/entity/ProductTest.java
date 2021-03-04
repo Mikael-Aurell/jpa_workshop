@@ -15,7 +15,7 @@ public class ProductTest {
         productTest.setName("A");
         productTest.setPrice(300);
 
-        //Assertions.assertEquals("A",productTest.getName());
+        Assertions.assertEquals("A",productTest.getName());
         Assertions.assertEquals(300,productTest.getPrice());
     }
 

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Repository
-@Entity
+
 
 public class AppUser {
     @Id

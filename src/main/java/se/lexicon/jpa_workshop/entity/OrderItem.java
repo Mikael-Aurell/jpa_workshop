@@ -3,6 +3,7 @@ package se.lexicon.jpa_workshop.entity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Repository
@@ -13,10 +14,13 @@ public class OrderItem {
     private int quantity;
     @Column(nullable = false)
     private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "productOrder_id")
     private ProductOrder productOrder;
 
     public double calculatePrice(Product product, int quantity){
-        return product.getPrice()*quantity;
+        return product.getPrice() * quantity;
     }
 
     public int getId() {
