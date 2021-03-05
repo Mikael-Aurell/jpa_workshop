@@ -11,18 +11,25 @@ import java.util.List;
 @SpringBootTest
 public class ProductOrderTest {
 
-    @Autowired
-    ProductOrder productOrderTest;
-    List<OrderItem> expectedItemList;
+    ProductOrder testObject; //Global variable
+    AppUser mikaelCustomer;
+    List<OrderItem> orderItemTestList;
+
+    //ProductOrder productOrderTest;
+
+    OrderItem orderItemTest1;
+    OrderItem orderItemTest2;
+    OrderItem orderItemTest3;
 
     @BeforeEach
     public void setup(){
+        testObject= new ProductOrder();
 
         //Create AppUser------------------------
-        AppUser appUserTest = new AppUser();
-        appUserTest.setFirstName("Mikael");
-        appUserTest.setLastName("Aurell");
-        appUserTest.setEmail("m.a@gmail.com");
+        mikaelCustomer = new AppUser();
+        mikaelCustomer.setFirstName("Mikael");
+        mikaelCustomer.setLastName("Aurell");
+        mikaelCustomer.setEmail("m.a@gmail.com");
         //------------------------------------
 
         //Create Products------------------------
@@ -51,31 +58,69 @@ public class ProductOrderTest {
         OrderItem orderItemTest3 = new OrderItem();
         orderItemTest3.setProduct(productTest3);
         orderItemTest3.setQuantity(10);
+        //--------------------------------------------
 
-        List<OrderItem> expectedItemList = new ArrayList<>();
-        expectedItemList.add(orderItemTest1);
-        expectedItemList.add(orderItemTest2);
-        expectedItemList.add(orderItemTest3);
+        //Create orderItemTestList
+        orderItemTestList = new ArrayList<>();
+        orderItemTestList.add(orderItemTest1);
+        orderItemTestList.add(orderItemTest2);
+        orderItemTestList.add(orderItemTest3);
 
-        //Add ProductOrder---------------------------------
-        ProductOrder productOrderTest = new ProductOrder();
 
-        //testProductObject.addOrderItem(orderItemTest1); //Todo: check addOrderItem method not working
-        //testProductObject.addOrderItem(orderItemTest2);
-        //testProductObject.addOrderItem(orderItemTest3);
 
-        productOrderTest.setCustomer(appUserTest);
-        productOrderTest.setOrderDateTime(LocalDateTime.now());
-        productOrderTest.setOrderItems(expectedItemList);
-        //-------------------------------------------------
+        //Add ProductOrder Setup---------------------------------
+        testObject.setCustomer(mikaelCustomer);
+        testObject.setOrderDateTime(LocalDateTime.now());
+        //testObject.addOrderItem(orderItemTest1);
+        testObject.addOrderItem(orderItemTest1);
+        testObject.addOrderItem(orderItemTest2);
+
+
 
     }
 
     @Test
-    @DisplayName("Test 1: Create ProductOrder")
+    @DisplayName("Test 1: Create Customer")
     public void test1(){
 
-        Assertions.assertEquals(expectedItemList, productOrderTest.getOrderItems());
+        Assertions.assertEquals("Mikael", testObject.getCustomer().getFirstName());
+    }
 
+    @Test
+    @DisplayName("Test 2: SetOrderItems")
+    public void test2(){
+
+        testObject.setOrderItems(orderItemTestList);
+
+        Assertions.assertEquals("A", testObject.getOrderItems().get(0).getProduct().getName());
+    }
+
+    @Test
+    @DisplayName("Test 3: Method AddOrderItem")
+    public void test3(){
+
+        //testObject.addOrderItem(orderItemTest1);
+        //testObject.addOrderItem(orderItemTest2);
+
+        Assertions.assertEquals("B", testObject.getOrderItems().get(1).getProduct().getName());
+    }
+
+
+    @Test
+    @DisplayName("Test 4: Method RemoveOrderItem")
+    public void test4(){
+        //testObject.addOrderItem(orderItemTest2);
+        testObject.removeOrderItem(orderItemTest1); //Todo: removeOrderItem dosent work
+
+        Assertions.assertEquals("B", testObject.getOrderItems().get(1).getProduct().getName());
+    }
+
+    @Test
+    @DisplayName("Test 5: CalculateTotalPrice")
+    public void test5(){
+
+
+        //testObject.addOrderItem(orderItemTest2);
+        Assertions.assertEquals(2900, testObject.calculateTotalPrice(testObject.getOrderItems()));
     }
 }

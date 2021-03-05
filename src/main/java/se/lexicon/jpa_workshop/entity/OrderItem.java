@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
+
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

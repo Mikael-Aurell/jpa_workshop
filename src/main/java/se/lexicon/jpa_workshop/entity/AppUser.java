@@ -6,8 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Repository
-
 
 public class AppUser {
     @Id

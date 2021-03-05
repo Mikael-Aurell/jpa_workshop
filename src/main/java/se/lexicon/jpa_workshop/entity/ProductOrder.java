@@ -6,10 +6,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
+
 public class ProductOrder {
     private int id;
     private LocalDateTime orderDateTime;
@@ -19,18 +20,25 @@ public class ProductOrder {
     private List<OrderItem> orderItems;
 
     //convince methods
-    public void addOrderItem(OrderItem orderItem){
+    public void addOrderItem(OrderItem orderItem) {
+        if (orderItems == null) {
+            orderItems = new ArrayList<>();
+        }
         orderItem.setProductOrder(this);
         orderItems.add(orderItem);
     }
 
     // convince methods
-    public void removeOrderItem(OrderItem orderItem){
-        orderItem.setProductOrder(null);
-        orderItems.remove(orderItem);
+    public void removeOrderItem(OrderItem orderItem) {
+        if (orderItem != null) {
+            orderItem.setProductOrder(null);
+            orderItems.remove(orderItem);
+        }
+        // check if is not null then you can remove
+
     }
 
-    public double calculateTotalPrice(List<OrderItem> orderItems){
+    public double calculateTotalPrice(List<OrderItem> orderItems) {
         return orderItems.stream()
                 .map(x -> x.calculatePrice(x.getProduct(), x.getQuantity()))
                 .reduce(0.0, Double::sum);
