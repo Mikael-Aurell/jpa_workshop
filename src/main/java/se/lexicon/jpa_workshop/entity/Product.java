@@ -16,6 +16,11 @@ public class Product {
     @Column(nullable = false, length = 80)
     private double price;
 
+    public Product() {
+    }
+
+    //Getters and Setters
+
     public int getId() {
         return id;
     }

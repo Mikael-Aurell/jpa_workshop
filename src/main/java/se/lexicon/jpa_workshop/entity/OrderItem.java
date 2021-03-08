@@ -12,12 +12,17 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int quantity;
-    @Column(nullable = false)
+
+    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     private Product product;
 
-    @ManyToOne
+    @ManyToOne (cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "productOrder_id")
     private ProductOrder productOrder;
+
+    OrderItem(){}
+
+    //Getters and Setters
 
     public double calculatePrice(Product product, int quantity){
         return product.getPrice() * quantity;

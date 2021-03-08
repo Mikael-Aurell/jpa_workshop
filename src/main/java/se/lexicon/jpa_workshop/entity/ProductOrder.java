@@ -28,6 +28,9 @@ public class ProductOrder {
         orderItems.add(orderItem);
     }
 
+    public ProductOrder() {
+    }
+
     // convince methods
     public void removeOrderItem(OrderItem orderItem) {
         if (orderItem != null) {
@@ -43,6 +46,8 @@ public class ProductOrder {
                 .map(x -> x.calculatePrice(x.getProduct(), x.getQuantity()))
                 .reduce(0.0, Double::sum);
     }
+
+    //Getters and Setters
 
     public int getId() {
         return id;

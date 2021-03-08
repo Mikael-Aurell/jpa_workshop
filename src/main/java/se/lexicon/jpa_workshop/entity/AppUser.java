@@ -18,6 +18,11 @@ public class AppUser {
     @Column(nullable = false, length = 80)
     private String email;
 
+    public AppUser() {
+    }
+
+    //Getters and Setters
+
     public int getId() {
         return id;
     }
